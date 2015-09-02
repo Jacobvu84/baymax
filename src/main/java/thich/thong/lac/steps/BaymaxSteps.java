@@ -5,11 +5,16 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+
+import org.apache.commons.io.FileUtils;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import thich.thong.lac.pages.BaymaxCore;
+import thich.thong.lac.util.CompareGraph;
 
 public class BaymaxSteps extends ScenarioSteps {
 
@@ -126,5 +131,20 @@ public class BaymaxSteps extends ScenarioSteps {
 	public void is_not_url(String url) {
 		assertThat(onBaymax.getUrl(), not(equalTo(url)));
 	}
+	
+	@Step
+	public void actual_image_and_expected_image_should_be_similar(String expectImg, String actualImge) {
+		assertThat(CompareGraph.Result.Matched, equalTo(CompareGraph.CompareImage(expectImg, actualImge)));
+	}
 
+	@Step
+	public void capture_and_save_it(String element, String pathStorge) {
+			try {
+				FileUtils.copyFile(onBaymax.captureElementBitmap(element), new File(pathStorge));
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 }

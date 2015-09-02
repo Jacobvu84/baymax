@@ -151,4 +151,25 @@ public class DefinitionSteps {
     public void the_url_is_not(String domain){
     	baymax.is_not_url(domain);
     }
+    
+	protected static String actualImage = System.getProperty("user.dir") + "\\images\\";
+	protected static String tmpImage = System.getProperty("user.dir") + "\\target\\";
+    
+	@Khi("^chụp hình đối tượng tại \"([^\"]*)\" và đặt tên ảnh là \"([^\"]*)\"$")
+	@When("^capture image of \"([^\"]*)\" element and save as \"([^\"]*)\"$")
+	public void capture_image_of_element(String element, String imgName){
+		String pathStorge = actualImage + imgName;
+		baymax.capture_and_save_it(element, pathStorge);
+	}
+	
+	@Khi("^kiểm tra hình ảnh của đối tượng tại \"([^\"]*)\" giống với hình ảnh \"([^\"]*)\"$")
+	@Then("^assert that image of \"([^\"]*)\" element and expected \"([^\"]*)\" image is similar$")
+	public void actual_image_and_expected_image_should_be_similar(String element, String imgName) {
+		String pathStorge = tmpImage + imgName;
+		baymax.capture_and_save_it(element,pathStorge);
+		
+		String actual = actualImage + imgName;
+		
+		baymax.actual_image_and_expected_image_should_be_similar(pathStorge, actual);
+	}
 }

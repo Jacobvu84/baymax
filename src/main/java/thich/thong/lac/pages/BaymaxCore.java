@@ -148,4 +148,33 @@ public class BaymaxCore extends PageObject {
 	public String getUrl() {
 		return getDriver().getCurrentUrl();
 	}
+	
+	public File captureElementBitmap(String element) throws Exception {
+
+		File screen = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
+		WebElement webElemet = getWebElement(element);
+		// Create an instance of Buffered Image from captured screenshot
+		BufferedImage img = ImageIO.read(screen);
+
+		// Get the Width and Height of the WebElement using getSize()
+		int width = webElemet.getSize().getWidth();
+		int height = webElemet.getSize().getHeight();
+
+		// Create a rectangle using Width and Heights
+		Rectangle rect = new Rectangle(width, height);
+
+		// Get the Location of WebElement in a Point.
+		// This will provide X & Y co-ordinates of the WebElement
+		Point p = webElemet.getLocation();
+
+		// Create image by_class for element using its location and size.
+		// This will give image data specific to the WebElement
+		BufferedImage dest = img.getSubimage(p.getX(), p.getY(), rect.width, rect.height);
+
+		// Write back the image data for element in File object
+		ImageIO.write(dest, "png", screen);
+
+		// Return the File object containing image data
+		return screen;
+	}
 }
