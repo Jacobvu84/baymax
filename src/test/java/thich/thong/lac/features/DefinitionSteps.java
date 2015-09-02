@@ -31,22 +31,22 @@ public class DefinitionSteps {
     }
    
     @Khi("^mở liên kết \"([^\"]*)\" trên cửa sổ mới và chọn nó$")
-	@When("^open \"([^\"]*)\" link in new window and switch to it$")
-	public void open_link_in_new_window(String linkText) {
-		baymax.open_link_in_new_window(linkText);
-	}
+    @When("^open \"([^\"]*)\" link in new window and switch to it$")
+    public void open_link_in_new_window(String linkText) {
+    	baymax.open_link_in_new_window(linkText);
+    }
     
     @Khi("^mở hộp thoại \"([^\"]*)\" và chọn nó$")
- 	@When("^open \"([^\"]*)\" dialog and switch to it$")
-	public void open_dialog(String element) {
-		baymax.open_dialog(element);
-	}
+    @When("^open \"([^\"]*)\" dialog and switch to it$")
+    public void open_dialog(String element) {
+    	baymax.open_dialog(element);
+    }
     
     @Khi("^quay lại cửa sổ ban đầu$")
-	@When("^switch back to the original window$")
-	public void switch_back_to_the_original_window() {
-		baymax.switch_back_to_the_original_window();
-	}
+    @When("^switch back to the original window$")
+    public void switch_back_to_the_original_window() {
+    	baymax.switch_back_to_the_original_window();
+    }
     
     @Khi("^nới rộng cửa sổ tối đa$")
     @When("^maximize the window$")
@@ -84,21 +84,20 @@ public class DefinitionSteps {
     	baymax.adjust_window_dimension(width,height);
     }
    
-	@When("^close current window$")
-	@Khi("^đóng cửa sổ hiện tại$")
-	public void close_current_window() {
-		baymax.close_current_window();
-	}
+    @When("^close current window$")
+    @Khi("^đóng cửa sổ hiện tại$")
+    public void close_current_window() {
+ 	baymax.close_current_window();
+    }
 	
-	@Khi("^cuộn màn hình lên hoặc xuống với giá trị \\((\\d+),(\\d+)\\)$")
-	@When("^scroll up or down in screen with value \\((\\d+),(\\d+)\\)$")
-	public void scroll_screen_to(int x, int y) {
-		baymax.scroll_screen_to(x,y);
-	}
+    @Khi("^cuộn màn hình lên hoặc xuống với giá trị \\((\\d+),(\\d+)\\)$")
+    @When("^scroll up or down in screen with value \\((\\d+),(\\d+)\\)$")
+    public void scroll_screen_to(int x, int y) {
+    	baymax.scroll_screen_to(x,y);
+    }
 	
-	@When("^wait for (\\d+) seconds$")
-	public void wait_for_seconds(int time) throws Throwable {
-	   Thread.sleep(time*1000);
-	}
-
+    @When("^wait for (\\d+) seconds$")
+    public void wait_for_seconds(int time) throws Throwable {
+    	Thread.sleep(time*1000);
+    }
 }
