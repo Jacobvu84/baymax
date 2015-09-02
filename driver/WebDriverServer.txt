@@ -1,0 +1,5 @@
+PhantomJS:              http://phantomjs.org/download.html
+IEDriverServer_Win32_2: http://selenium-release.storage.googleapis.com/2.47/IEDriverServer_Win32_2.47.0.zip
+IEDriverServer_x64_2:   http://selenium-release.storage.googleapis.com/2.47/IEDriverServer_x64_2.47.0.zip
+ChromeDriverServer:     http://chromedriver.storage.googleapis.com/index.html?path=2.18/
+
