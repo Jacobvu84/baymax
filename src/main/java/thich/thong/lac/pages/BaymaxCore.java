@@ -33,7 +33,7 @@ public class BaymaxCore extends PageObject {
 	
 	String defaultWindow = "";
 	
-	private  WebElement getWebElement(String target) {
+	public  WebElement getWebElement(String target) {
 		try {
 			return getDriver().findElement(getObject(target));
 
@@ -176,5 +176,20 @@ public class BaymaxCore extends PageObject {
 
 		// Return the File object containing image data
 		return screen;
+	}
+	
+	// disabled - enabled
+	public boolean isEnabled(String element) {
+		return element(getWebElement(element)).isEnabled();
+	}
+
+	// present - absent
+	public boolean isPresent(String element) {
+		return element(getWebElement(element)).isPresent();
+	}
+
+	// visible - hidden
+	public boolean isVisible(String element) {
+		return element(getWebElement(element)).isVisible();
 	}
 }

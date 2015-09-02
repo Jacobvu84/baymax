@@ -147,4 +147,85 @@ public class BaymaxSteps extends ScenarioSteps {
 				e.printStackTrace();
 			}
 		}
+	
+	@Step
+	public void the_text_element_should_be(String element, String value) {
+		assertThat(getText(element), equalTo(value));
+	}
+
+	public String getText(String element) {
+		return onBaymax.getWebElement(element).getText();
+	}
+
+	public String getAttribute(String attrName, String element) {
+		return onBaymax.getWebElement(element).getAttribute(attrName);
+	}
+
+	@Step
+	public void the_text_element_should_not_be(String element, String value) {
+		assertThat(getText(element), not(equalTo(value)));
+	}
+
+	@Step
+	public void the_text_element_should_contain(String element, String value) {
+		String elementText = onBaymax.getWebElement(element).getText();
+		assertThat(elementText, containsString(value));
+	}
+
+	@Step
+	public void the_text_element_should_not_contain(String element, String value) {
+		String elementText = onBaymax.getWebElement(element).getText();
+		assertThat(elementText, not(containsString(value)));
+	}
+	
+	@Step
+	public void the_element_should_be_enabled(String element) {
+		assertThat(onBaymax.isEnabled(element), is(true));
+	}
+
+	@Step
+	public void the_element_should_be_disabled(String element) {
+		assertThat(onBaymax.isEnabled(element), is(false));
+	}
+
+	@Step
+	public void the_element_should_be_present(String element) {
+		assertThat(onBaymax.isPresent(element), is(true));
+	}
+
+	@Step
+	public void the_element_should_not_be_present(String element) {
+		assertThat(onBaymax.isPresent(element), is(false));
+	}
+
+	@Step
+	public void the_element_should_be_visible(String element) {
+		assertThat(onBaymax.isVisible(element), is(true));
+	}
+
+	@Step
+	public void the_element_should_be_hidden(String element) {
+		assertThat(onBaymax.isVisible(element), is(false));
+	}
+	
+	@Step
+	public void the_attribute_of_element_should_contain(String attrName, String element, String value) {
+		assertThat(getAttribute(attrName, element), containsString(value));
+	}
+
+	@Step
+	public void the_attribute_of_element_should_be(String attrName, String element, String value) {
+		assertThat(getAttribute(attrName, element), equalTo(value));
+	}
+
+	@Step
+	public void the_attribute_of_element_should_not_contain(String attrName, String element, String value) {
+		assertThat(getAttribute(attrName, element), not(containsString(value)));
+	}
+
+	@Step
+	public void the_attribute_of_element_should_not_be(String attrName, String element, String value) {
+		assertThat(getAttribute(attrName, element), not(equalTo(value)));
+	}
+
 }

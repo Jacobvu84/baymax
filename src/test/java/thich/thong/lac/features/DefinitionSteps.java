@@ -162,7 +162,7 @@ public class DefinitionSteps {
 		baymax.capture_and_save_it(element, pathStorge);
 	}
 
-	@Khi("^kiểm tra hình ảnh của đối tượng tại \"([^\"]*)\" giống với hình ảnh \"([^\"]*)\"$")
+	@Thì("^kiểm tra hình ảnh của đối tượng tại \"([^\"]*)\" giống với hình ảnh \"([^\"]*)\"$")
 	@Then("^assert that image of \"([^\"]*)\" element and expected \"([^\"]*)\" image is similar$")
 	public void actual_image_and_expected_image_should_be_similar(String element, String imgName) {
 		String pathStorge = tmpImage + imgName;
@@ -171,5 +171,89 @@ public class DefinitionSteps {
 		String actual = actualImage + imgName;
 
 		baymax.actual_image_and_expected_image_should_be_similar(pathStorge, actual);
+	}
+
+	@Thì("^kiểm tra văn bản của đối tượng \"(.*?)\" là \"(.*?)\"$")
+	@Then("^assert that the text \"(.*?)\" element is \"(.*?)\"$")
+	public void the_text_element_is(String target, String value) throws Throwable {
+		baymax.the_text_element_should_be(target, value);
+	}
+
+	@Thì("^kiểm tra văn bản của đối tượng \"(.*?)\" không là \"(.*?)\"$")
+	@Then("^assert that the text \"(.*?)\" element is not \"(.*?)\"$")
+	public void the_text_element_should_is_not(String target, String value) throws Throwable {
+		baymax.the_text_element_should_not_be(target, value);
+	}
+
+	@Thì("^kiểm tra văn bản của đối tượng \"(.*?)\" có chứa \"(.*?)\"$")
+	@Then("^assert that the text \"(.*?)\" element has \"(.*?)\"$")
+	public void the_text_element_should_contain(String target, String value) throws Throwable {
+		baymax.the_text_element_should_contain(target, value);
+	}
+
+	@Thì("^kiểm tra văn bản của đối tượng \"(.*?)\" không chứa \"(.*?)\"$")
+	@Then("^assert that the text \"(.*?)\" element does not have \"(.*?)\"$")
+	public void the_text_element_should_not_contain(String target, String value) throws Throwable {
+		baymax.the_text_element_should_not_contain(target, value);
+	}
+
+	@Thì("^kiểm tra thuộc tính \"(.*?)\" của đối tượng \"(.*?)\" có giá trị là \"(.*?)\"$")
+	@Then("^assert that the \"(.*?)\" attribute of \"(.*?)\" is \"(.*?)\"$")
+	public void element_attr_should_be(String attribute, String element, String value) throws Throwable {
+		baymax.the_attribute_of_element_should_be(attribute, element, value);
+	}
+
+	@Thì("^kiểm tra thuộc tính \"(.*?)\" của đối tượng \"(.*?)\" không có giá trị là \"(.*?)\"$")
+	@Then("^assert that the \"(.*?)\" attribute of \"(.*?)\" is not \"(.*?)\"$")
+	public void element_attr_should_not_be(String attribute, String element, String value) {
+		baymax.the_attribute_of_element_should_not_be(attribute, element, value);
+	}
+
+	@Thì("^kiểm tra thuộc tính \"(.*?)\" của đối tượng \"(.*?)\" có chứa giá trị là \"(.*?)\"$")
+	@Then("^assert that the \"(.*?)\" attribute of \"(.*?)\" has \"(.*?)\"$")
+	public void element_attr_should_contain(String attribute, String element, String value) {
+		baymax.the_attribute_of_element_should_contain(attribute, element, value);
+	}
+
+	@Thì("^kiểm tra thuộc tính \"(.*?)\" của đối tượng \"(.*?)\" không chứa giá trị là \"(.*?)\"$")
+	@Then("^assert that the \"(.*?)\" attribute of \"(.*?)\" does not have \"(.*?)\"$")
+	public void element_attr_should_not_contain(String attribute, String element, String value) {
+		baymax.the_attribute_of_element_should_not_contain(attribute, element, value);
+	}
+
+	@Thì("^kiểm tra đối tượng tượng \"(.*?)\" có hiệu lực$")
+	@Then("^assert that the \"(.*?)\" element is enabled$")
+	public void the_element_should_be_enabled(String element) {
+		baymax.the_element_should_be_enabled(element);
+	}
+
+	@Thì("^kiểm tra đối tượng tượng \"(.*?)\" bị vô hiệu hóa$")
+	@Then("^assert that the \"(.*?)\" element is disabled$")
+	public void the_element_should_be_disabled(String element) {
+		baymax.the_element_should_be_disabled(element);
+	}
+
+	@Thì("^kiểm tra đối tượng tượng \"(.*?)\" có tồn tại$")
+	@Then("^assert that the \"(.*?)\" element is present$")
+	public void the_element_should_be_present(String element) {
+		baymax.the_element_should_be_present(element);
+	}
+
+	@Thì("^kiểm tra đối tượng tượng \"(.*?)\" không tồn tại$")
+	@Then("^assert that the \"(.*?)\" element is absent$")
+	public void the_element_should_not_be_present(String element) {
+		baymax.the_element_should_not_be_present(element);
+	}
+
+	@Thì("^kiểm tra đối tượng tượng \"(.*?)\" nhìn thấy được$")
+	@Then("^assert that the \"(.*?)\" element is visible$")
+	public void the_element_should_be_visible(String element) {
+		baymax.the_element_should_be_visible(element);
+	}
+
+	@Thì("^kiểm tra đối tượng tượng \"(.*?)\" bị ẩn$")
+	@Then("^assert that the \"(.*?)\" element is hidden$")
+	public void the_element_should_be_hidden(String element) {
+		baymax.the_element_should_be_hidden(element);
 	}
 }
