@@ -1,9 +1,11 @@
 package thich.thong.lac.features;
 
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.java.vi.Cho;
 import cucumber.api.java.vi.Khi;
+import cucumber.api.java.vi.Thì;
 import net.thucydides.core.annotations.Steps;
 import thich.thong.lac.steps.BaymaxSteps;
 
@@ -96,8 +98,57 @@ public class DefinitionSteps {
     	baymax.scroll_screen_to(x,y);
     }
 	
+    @Khi("^dừng hình trong (\\d+) giây$")
     @When("^wait for (\\d+) seconds$")
     public void wait_for_seconds(int time) throws Throwable {
     	Thread.sleep(time*1000);
+    }
+    
+    @Thì("^kiểm tra trang này có chứa đoạn văn bản \"([^\"]*)\"$")
+    @When("^assert that the \"([^\"]*)\" text is present$")
+    public void the_text_is_present(String textValue) {
+    	baymax.the_text_is_present(textValue);
+    }
+
+    @Thì("^kiểm tra trang này không chứa đoạn văn bản \"([^\"]*)\"$")
+    @When("^assert that the \"([^\"]*)\" text is not present$")
+    public void the_text_is_not_present(String textValue) throws Throwable {
+    	baymax.the_text_is_not_present(textValue);
+    }
+    
+    @Thì("^kiểm tra tiêu đề trang là \"([^\"]*)\"$")
+    @Then("^assert that the page title is \"([^\"]*)\"$")
+    public void page_title_is(String pageTitle) {
+    	baymax.page_title_is(pageTitle);
+    }
+
+    @Thì("^kiểm tra tiêu đề trang không là \"([^\"]*)\"$")
+    @Then("^assert that the page title is not \"([^\"]*)\"$")
+    public void page_title_is_not(String pageTitle) {
+    	baymax.page_title_not_is(pageTitle);
+    }
+
+    @Thì("^kiểm tra tiêu đề trang có chứa \"([^\"]*)\"$")
+    @Then("^assert that the page title has \"([^\"]*)\"$")
+    public void assert_that_the_page_title_has(String pageSubTitle) {
+    	baymax.page_title_has(pageSubTitle);
+    }
+
+    @Thì("^kiểm tra tiêu đề trang không chứa \"([^\"]*)\"$")
+    @Then("^assert that the page title does not have \"([^\"]*)\"$")
+    public void assert_that_the_page_title_does_not_have(String pageSubTitle){
+    	baymax.page_title_not_have(pageSubTitle);
+    }
+    
+    @Thì("^kiểm tra tên miền của trang là \"([^\"]*)\"$")
+    @Then("^assert that the url is \"([^\"]*)\"$")
+    public void the_url_is(String domain){
+    	baymax.is_url(domain);
+    }
+
+    @Thì("^kiểm tra tên miền của trang không là \"([^\"]*)\"$")
+    @Then("^assert that the url is not \"([^\"]*)\"$")
+    public void the_url_is_not(String domain){
+    	baymax.is_not_url(domain);
     }
 }

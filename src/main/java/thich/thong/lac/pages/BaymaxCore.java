@@ -144,4 +144,8 @@ public class BaymaxCore extends PageObject {
 	public void scrollTo(int x, int y) {
 		evaluateJavascript("window.scrollTo("+x+", "+y+");");
 	}
+
+	public String getUrl() {
+		return getDriver().getCurrentUrl();
+	}
 }

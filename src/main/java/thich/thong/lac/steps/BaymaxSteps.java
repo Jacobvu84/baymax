@@ -1,4 +1,10 @@
 package thich.thong.lac.steps;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+
 import java.util.HashMap;
 
 import net.thucydides.core.annotations.Step;
@@ -79,6 +85,46 @@ public class BaymaxSteps extends ScenarioSteps {
 	@Step
 	public void scroll_screen_to(int x, int y) {
 		onBaymax.scrollTo(x, y);
+	}
+
+	@Step
+	public void the_text_is_present(String textValue) {
+		assertThat(onBaymax.containsText(textValue), is(true));
+	}
+
+	@Step
+	public void the_text_is_not_present(String textValue) {
+		assertThat(onBaymax.containsText(textValue), is(false));
+	}
+	
+	@Step
+	public void page_title_has(String pageSubTitle) {
+		assertThat(onBaymax.getTitle(), containsString(pageSubTitle));
+	}
+
+	@Step
+	public void page_title_not_have(String pageSubTitle) {
+		assertThat(onBaymax.getTitle(), not(containsString(pageSubTitle)));
+	}
+
+	@Step
+	public void page_title_is(String pageTitle) {
+		assertThat(onBaymax.getTitle(), equalTo(pageTitle));
+	}
+
+	@Step
+	public void page_title_not_is(String pageTitle) {
+		assertThat(onBaymax.getTitle(), not(equalTo(pageTitle)));
+	}
+
+	@Step
+	public void is_url(String url) {
+		assertThat(onBaymax.getUrl(), equalTo(url));
+	}
+	
+	@Step
+	public void is_not_url(String url) {
+		assertThat(onBaymax.getUrl(), not(equalTo(url)));
 	}
 
 }
