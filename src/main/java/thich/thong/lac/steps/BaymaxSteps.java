@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.WebElement;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -256,6 +257,40 @@ public class BaymaxSteps extends ScenarioSteps {
 	@Step
 	public void swich_back_to_main_frame() {
 		onBaymax.backToMainFrame();
+	}
+	
+	@Step
+	public void upload_file(String pathFile) {
+		onBaymax.upload_file(pathFile);
+	}
+	
+	@Step
+	public void enter_into_the_field_with(String element, String value) {
+		WebElement webElement = onBaymax.getWebElement(element);
+		onBaymax.element(webElement).clear();
+		onBaymax.element(webElement).sendKeys(value);
+	}
+	
+	@Step
+	public void type_into_the_field_with(String element, String value) {
+		WebElement webElement = onBaymax.getWebElement(element);
+		onBaymax.typeInto(webElement, value);
+	}
+
+	@Step
+	public void click_on_the(String element) {
+		WebElement webElement = onBaymax.getWebElement(element);
+		onBaymax.clickOn(webElement);
+	}
+	
+	@Step
+	public void wait_for_the_element_to_be_clickable(String element) {
+		onBaymax.wait_for_the_element_to_be_clickable(element);
+	}
+	
+	@Step
+	public void wait_for_any_text_to_be_present(String textValue) {
+		onBaymax.waitForAnyTextToAppear(textValue);
 	}
 
 

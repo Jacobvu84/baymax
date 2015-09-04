@@ -1,5 +1,9 @@
 package thich.thong.lac.pages;
 import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -9,12 +13,16 @@ import javax.imageio.ImageIO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import net.thucydides.core.pages.PageObject;
 
 public class BaymaxCore extends PageObject {
@@ -213,5 +221,43 @@ public class BaymaxCore extends PageObject {
 
 	public void backToMainFrame() {
 		getDriver().switchTo().defaultContent();
+	}
+	
+	public void upload_file(String pathFile) {
+		uploadFile(pathFile);
+	}
+
+	/**
+	 * This method will set any parameter string to the system's clipboard.
+	 */
+	private static void setClipboardData(String string) {
+		// StringSelection is a class that can be used for copy and paste
+		// operations.
+		StringSelection stringSelection = new StringSelection(string);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+	}
+
+	private static void uploadFile(String fileLocation) {
+		try {
+			// Setting clip board with file location
+			setClipboardData(fileLocation);
+			// native key strokes for CTRL, V and ENTER keys
+			Robot robot = new Robot();
+
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			Thread.sleep(3000);
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+	}
+	
+	public void wait_for_the_element_to_be_clickable(String element) {
+		new WebDriverWait(getDriver(), 60).ignoring(NoAlertPresentException.class)
+				.until(ExpectedConditions.elementToBeClickable(getWebElement(element)));
 	}
 }

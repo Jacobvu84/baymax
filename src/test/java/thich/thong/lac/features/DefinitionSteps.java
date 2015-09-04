@@ -112,7 +112,7 @@ public class DefinitionSteps {
 
 	@Thì("^kiểm tra trang này không chứa đoạn văn bản \"([^\"]*)\"$")
 	@When("^assert that the \"([^\"]*)\" text is not present$")
-	public void the_text_is_not_present(String textValue) throws Throwable {
+	public void the_text_is_not_present(String textValue){
 		baymax.the_text_is_not_present(textValue);
 	}
 
@@ -259,38 +259,74 @@ public class DefinitionSteps {
 	
 	@Khi("^thay đổi thuộc tính \"([^\"]*)\" của đối tượng \"([^\"]*)\" thành \"([^\"]*)\"$")
 	@When("^change \"([^\"]*)\" attribute of \"([^\"]*)\" into \"([^\"]*)\"$")
-	public void change_attribute_of_into(String attr, String element, String attrValue) throws Throwable {
+	public void change_attribute_of_into(String attr, String element, String attrValue){
 		baymax.change_attribute_of_into(attr, element, attrValue);
 	}
 
 	@Khi("^làm nổi bật đối tượng \"([^\"]*)\"$")
 	@When("^highlight \"([^\"]*)\" element$")
-	public void highlight_element(String element) throws Throwable {
+	public void highlight_element(String element){
 		baymax.highlight_element(element);
 	}
 
 	@Khi("^vẽ đường bao quanh đối tượng \"([^\"]*)\"$")
 	@When("^set bound for \"([^\"]*)\" element$")
-	public void set_bound_for_element(String element) throws Throwable {
+	public void set_bound_for_element(String element){
 		baymax.set_bound_for_element(element);
 	}
 	
 	@Khi("^truy cập vào khung \"([^\"]*)\"$")
 	@When("^go inside the \"([^\"]*)\" frame$")
-	public void swich_to_frame(String iframeName) throws Throwable {
+	public void swich_to_frame(String iframeName){
 		baymax.swich_to_frame(iframeName);
 	}
 	
 	@Khi("quay lại khung trước đó$")
 	@When("^come back to parent frame$")
-	public void swich_back_to_parent_frame() throws Throwable {
+	public void swich_back_to_parent_frame(){
 		baymax.swich_back_to_parent_frame();
 	}
 
 	@Khi("quay lại khung chính$")
 	@When("^come back to main frame$")
-	public void swich_back_to_main_frame() throws Throwable {
+	public void swich_back_to_main_frame(){
 		baymax.swich_back_to_main_frame();
+	}
+	
+	@Khi("tải lên tài liệu \"([^\"]*)\"$")
+	@When("^\"([^\"]*)\" file is uploaded$")
+	public void upload_file(String pathFile){
+		baymax.upload_file(pathFile);
+	}
+	
+	@Khi("^thêm \"([^\"]*)\" vào trường \"([^\"]*)\"$")
+	@When("^\"([^\"]*)\" is sent into \"([^\"]*)\" field$")
+	public void fill_into_filed(String target, String value){
+		baymax.enter_into_the_field_with(target, value);
+	}
+
+	@Khi("^điền \"([^\"]*)\" vào trường \"([^\"]*)\"$")
+	@When("^\"([^\"]*)\" is typed into \"([^\"]*)\" field$")
+	public void type_into_the_field_with(String target, String value){
+		baymax.type_into_the_field_with(target, value);
+	}
+
+	@Khi("^nhấn chuột trái vào đối tượng \"([^\"]*)\"$")
+	@When("^\"([^\"]*)\" element is clicked$")
+	public void click_on_the(String target){
+		baymax.click_on_the(target);
+	}
+	
+	@Khi("^chờ đối tượng \"([^\"]*)\" có thể nhấn$")
+	@When("^wait for the \"([^\"]*)\" element to be clickable$")
+	public void wait_for_the_element_to_be_clickable(String element) throws Throwable {
+		baymax.wait_for_the_element_to_be_clickable(element);
+	}
+
+	@Khi("^chờ văn bản \"([^\"]*)\" xuất hiện$")
+	@When("^wait for any \"([^\"]*)\" text to be present$")
+	public void wait_for_any_text_to_be_present(String textValue) throws Throwable {
+		baymax.wait_for_any_text_to_be_present(textValue);
 	}
 
 }
