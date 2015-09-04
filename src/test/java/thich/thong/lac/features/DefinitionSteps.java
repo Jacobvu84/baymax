@@ -256,4 +256,41 @@ public class DefinitionSteps {
 	public void the_element_should_be_hidden(String element) {
 		baymax.the_element_should_be_hidden(element);
 	}
+	
+	@Khi("^thay đổi thuộc tính \"([^\"]*)\" của đối tượng \"([^\"]*)\" thành \"([^\"]*)\"$")
+	@When("^change \"([^\"]*)\" attribute of \"([^\"]*)\" into \"([^\"]*)\"$")
+	public void change_attribute_of_into(String attr, String element, String attrValue) throws Throwable {
+		baymax.change_attribute_of_into(attr, element, attrValue);
+	}
+
+	@Khi("^làm nổi bật đối tượng \"([^\"]*)\"$")
+	@When("^highlight \"([^\"]*)\" element$")
+	public void highlight_element(String element) throws Throwable {
+		baymax.highlight_element(element);
+	}
+
+	@Khi("^vẽ đường bao quanh đối tượng \"([^\"]*)\"$")
+	@When("^set bound for \"([^\"]*)\" element$")
+	public void set_bound_for_element(String element) throws Throwable {
+		baymax.set_bound_for_element(element);
+	}
+	
+	@Khi("^truy cập vào khung \"([^\"]*)\"$")
+	@When("^swich to \"([^\"]*)\" frame$")
+	public void swich_to_frame(String iframeName) throws Throwable {
+		baymax.swich_to_frame(iframeName);
+	}
+	
+	@Khi("quay lại khung trước đó$")
+	@When("^swich back to parent frame$")
+	public void swich_back_to_parent_frame() throws Throwable {
+		baymax.swich_back_to_parent_frame();
+	}
+
+	@Khi("quay lại khung chính$")
+	@When("^swich back to main frame$")
+	public void swich_back_to_main_frame() throws Throwable {
+		baymax.swich_back_to_main_frame();
+	}
+
 }

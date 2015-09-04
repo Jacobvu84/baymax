@@ -192,4 +192,38 @@ public class BaymaxCore extends PageObject {
 	public boolean isVisible(String element) {
 		return element(getWebElement(element)).isVisible();
 	}
+	
+	public void highlightElement(String element) {
+		WebElement webElement = getWebElement(element);
+		for (int i = 0; i < 10; i++) {
+			evaluateJavascript("arguments[0].setAttribute('style', arguments[1]);", webElement,
+					"color: green; border: 2px solid green;");
+			evaluateJavascript("arguments[0].setAttribute('style', arguments[1]);", webElement, "");
+		}
+	}
+
+	public void setAttribute(String attributeName, String element, String value) {
+		WebElement webElement = getWebElement(element);
+		evaluateJavascript("arguments[0].setAttribute(arguments[1], arguments[2])", webElement, attributeName, value);
+	}
+
+	// highlight element but not clean bound
+	public void setBounds(String element) {
+		WebElement webElement = getWebElement(element);
+		evaluateJavascript("arguments[0].setAttribute('style', arguments[1]);", webElement,
+				"color: red; border: 3px solid red;");
+	}
+	
+	public void swichToFrame(String iframeName) {
+		WebElement webElement = getWebElement(iframeName);
+		getDriver().switchTo().frame(webElement);
+	}
+
+	public void backToUpFrame() {
+		getDriver().switchTo().parentFrame();
+	}
+
+	public void backToMainFrame() {
+		getDriver().switchTo().defaultContent();
+	}
 }

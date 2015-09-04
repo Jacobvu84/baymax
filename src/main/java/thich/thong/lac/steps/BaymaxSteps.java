@@ -227,5 +227,36 @@ public class BaymaxSteps extends ScenarioSteps {
 	public void the_attribute_of_element_should_not_be(String attrName, String element, String value) {
 		assertThat(getAttribute(attrName, element), not(equalTo(value)));
 	}
+	
+	@Step
+	public void change_attribute_of_into(String attr, String element, String attrValue) {
+		onBaymax.setAttribute(attr, element, attrValue);
+	}
+
+	@Step
+	public void highlight_element(String element) {
+		onBaymax.highlightElement(element);
+	}
+
+	@Step
+	public void set_bound_for_element(String element) {
+		onBaymax.setBounds(element);
+	}
+	
+	@Step
+	public void swich_to_frame(String iframeName) {
+		onBaymax.swichToFrame(iframeName);
+	}
+
+	@Step
+	public void swich_back_to_parent_frame() {
+		onBaymax.backToUpFrame();
+	}
+
+	@Step
+	public void swich_back_to_main_frame() {
+		onBaymax.backToMainFrame();
+	}
+
 
 }
