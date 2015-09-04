@@ -221,37 +221,37 @@ public class DefinitionSteps {
 		baymax.the_attribute_of_element_should_not_contain(attribute, element, value);
 	}
 
-	@Thì("^kiểm tra đối tượng tượng \"(.*?)\" có hiệu lực$")
+	@Thì("^kiểm tra đối tượng \"(.*?)\" có hiệu lực$")
 	@Then("^assert that the \"(.*?)\" element is enabled$")
 	public void the_element_should_be_enabled(String element) {
 		baymax.the_element_should_be_enabled(element);
 	}
 
-	@Thì("^kiểm tra đối tượng tượng \"(.*?)\" bị vô hiệu hóa$")
+	@Thì("^kiểm tra đối tượng \"(.*?)\" bị vô hiệu hóa$")
 	@Then("^assert that the \"(.*?)\" element is disabled$")
 	public void the_element_should_be_disabled(String element) {
 		baymax.the_element_should_be_disabled(element);
 	}
 
-	@Thì("^kiểm tra đối tượng tượng \"(.*?)\" có tồn tại$")
+	@Thì("^kiểm tra đối tượng \"(.*?)\" có tồn tại$")
 	@Then("^assert that the \"(.*?)\" element is present$")
 	public void the_element_should_be_present(String element) {
 		baymax.the_element_should_be_present(element);
 	}
 
-	@Thì("^kiểm tra đối tượng tượng \"(.*?)\" không tồn tại$")
+	@Thì("^kiểm tra đối tượng \"(.*?)\" không tồn tại$")
 	@Then("^assert that the \"(.*?)\" element is absent$")
 	public void the_element_should_not_be_present(String element) {
 		baymax.the_element_should_not_be_present(element);
 	}
 
-	@Thì("^kiểm tra đối tượng tượng \"(.*?)\" nhìn thấy được$")
+	@Thì("^kiểm tra đối tượng \"(.*?)\" nhìn thấy được$")
 	@Then("^assert that the \"(.*?)\" element is visible$")
 	public void the_element_should_be_visible(String element) {
 		baymax.the_element_should_be_visible(element);
 	}
 
-	@Thì("^kiểm tra đối tượng tượng \"(.*?)\" bị ẩn$")
+	@Thì("^kiểm tra đối tượng \"(.*?)\" bị ẩn$")
 	@Then("^assert that the \"(.*?)\" element is hidden$")
 	public void the_element_should_be_hidden(String element) {
 		baymax.the_element_should_be_hidden(element);
@@ -276,19 +276,19 @@ public class DefinitionSteps {
 	}
 	
 	@Khi("^truy cập vào khung \"([^\"]*)\"$")
-	@When("^swich to \"([^\"]*)\" frame$")
+	@When("^go inside the \"([^\"]*)\" frame$")
 	public void swich_to_frame(String iframeName) throws Throwable {
 		baymax.swich_to_frame(iframeName);
 	}
 	
 	@Khi("quay lại khung trước đó$")
-	@When("^swich back to parent frame$")
+	@When("^come back to parent frame$")
 	public void swich_back_to_parent_frame() throws Throwable {
 		baymax.swich_back_to_parent_frame();
 	}
 
 	@Khi("quay lại khung chính$")
-	@When("^swich back to main frame$")
+	@When("^come back to main frame$")
 	public void swich_back_to_main_frame() throws Throwable {
 		baymax.swich_back_to_main_frame();
 	}
