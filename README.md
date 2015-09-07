@@ -2,9 +2,15 @@
 
 Cộng cụ dành cho những bạn yêu kiểm thử tự động nhưng không biết lập trình
 
+*** 
+
 Video hướng dẫn:
 
 [Baymax tutorial](https://www.youtube.com/playlist?list=PLpTCO0Fa9GR0AY68NryiRT4Q6k34Q7K0O)
+
+*** 
+
+Trao đổi những vấn đề trong việc phát triển và sử dụng
 
 [Chatter](https://gitter.im/vuthelinh/baymax-chat)
 
