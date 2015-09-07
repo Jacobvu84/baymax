@@ -11,8 +11,8 @@ Video hướng dẫn:
 *** 
 
 Yêu cầu môi trường
-* Java 8
-* Maven 3.3.x
+* [Java 8](https://www.youtube.com/watch?v=bQLbrXHiFxY). Nhớ họn java version 8 nhé ^^
+* [Maven 3.3.x](https://www.youtube.com/watch?v=wWSVxtsi7U8)
 
 ## Giấy phép và bản quyền - License and Copyright
 
