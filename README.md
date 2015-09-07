@@ -1,6 +1,6 @@
-# baymax
+# Hello, I am baymax. Your personal auto tester companion.
 
-Cộng cụ dành cho những bạn yêu kiểm thử tự động nhưng không biết lập trình
+Cộng cụ thực hiện kiểm thử tự động mà không cần không biết lập trình
 
 *** 
 
