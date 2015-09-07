@@ -6,6 +6,8 @@ Video hướng dẫn:
 
 [Baymax tutorial](https://www.youtube.com/playlist?list=PLpTCO0Fa9GR0AY68NryiRT4Q6k34Q7K0O)
 
+[Chatter](https://gitter.im/vuthelinh/baymax-chat)
+
 
 ## Giấy phép và bản quyền - License and Copyright
 
