@@ -24,8 +24,8 @@ Yêu cầu môi trường
 
 Phần mềm này dựa trên nền tảng của Selenium WebDriver, sử dụng thư viện Serenity BDD.
 
-Copyright 2015 Vũ Thế Linh 
-
-Online version published by Vu The Linh.
+Copyright 2015 The Baymax Software Foundation
 
 Non-commercial
+
+Thank you for using Baymax.
