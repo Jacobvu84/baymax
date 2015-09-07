@@ -8,6 +8,11 @@ Video hướng dẫn:
 
 [Chatter](https://gitter.im/vuthelinh/baymax-chat)
 
+*** 
+
+Yêu cầu môi trường
+* Java 8
+* Maven 3.3.x
 
 ## Giấy phép và bản quyền - License and Copyright
 
