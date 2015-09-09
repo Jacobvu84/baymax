@@ -20,6 +20,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
+import org.openqa.selenium.remote.server.handler.GetAlertText;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -257,7 +258,62 @@ public class BaymaxCore extends PageObject {
 	}
 	
 	public void wait_for_the_element_to_be_clickable(String element) {
+		new WebDriverWait(getDriver(), 60).ignoring(NoSuchElementException.class)
+				                          .until(ExpectedConditions.elementToBeClickable(getWebElement(element)));
+	}
+
+	public void acceptPopUp(String element) {
+		getWebElement(element).click();
+		waitForAlert();
+		getAlert().accept();
+	}
+	
+	public void acceptPopUp() {
+		waitForAlert();
+		getAlert().accept();
+	}
+
+	private void waitForAlert() {
 		new WebDriverWait(getDriver(), 60).ignoring(NoAlertPresentException.class)
-				.until(ExpectedConditions.elementToBeClickable(getWebElement(element)));
+										  .until(ExpectedConditions.alertIsPresent());
+	}
+
+	public void dismissPopUp(String element) {
+		getWebElement(element).click();
+		waitForAlert();
+		getAlert().dismiss();
+	}
+	
+	public void dismissPopUp() {
+		waitForAlert();
+		getAlert().dismiss();
+	}
+	
+	public void answerPopUp(String answer, String element) {
+		getWebElement(element).click();
+		waitForAlert();
+		getAlert().sendKeys(answer);
+		getAlert().accept();
+	}
+	
+	public void answerPopUp(String answer) {
+		waitForAlert();
+		getAlert().sendKeys(answer);
+		getAlert().accept();
+	}
+	
+	public String getTextAlert(String element) {
+		getWebElement(element).click();
+		waitForAlert();
+		String textPop = getAlert().getText();
+		getAlert().accept();
+		return textPop;
+	}
+	
+	public String getTextAlert() {
+		waitForAlert();
+		String textPop = getAlert().getText();
+		getAlert().accept();
+		return textPop;
 	}
 }

@@ -11,6 +11,9 @@ import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.server.handler.GetAlertText;
+
+import com.thoughtworks.selenium.webdriven.commands.GetConfirmation;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -292,6 +295,47 @@ public class BaymaxSteps extends ScenarioSteps {
 	public void wait_for_any_text_to_be_present(String textValue) {
 		onBaymax.waitForAnyTextToAppear(textValue);
 	}
+	
+	@Step
+	public void accept_dialog_popup(String element) {
+		onBaymax.acceptPopUp(element);
+	}
+	
+	@Step
+	public void accept_dialog_popup() {
+		onBaymax.acceptPopUp();
+	}
+
+	@Step
+	public void dimiss_dialog_popup(String element) {
+		onBaymax.dismissPopUp(element);
+	}
+	
+	@Step
+	public void dimiss_dialog_popup() {
+		onBaymax.dismissPopUp();
+	}
+	
+	@Step
+	public void answer_dialog_popup(String answer, String element) {
+		onBaymax.answerPopUp(answer, element);
+	}
+	
+	@Step
+	public void answer_dialog_popup(String answer) {
+		onBaymax.answerPopUp(answer);
+	}
+	
+	@Step
+	public void text_on_popup_box(String element,String value) {
+		assertThat(onBaymax.getTextAlert(element), equalTo(value));
+	}
+
+	@Step
+	public void text_on_popup_box_is(String value) {
+		assertThat(onBaymax.getTextAlert(), equalTo(value));
+	}
+
 
 
 }
