@@ -336,6 +336,22 @@ public class BaymaxSteps extends ScenarioSteps {
 		assertThat(onBaymax.getTextAlert(), equalTo(value));
 	}
 
+	@Step
+	public void assert_that_the_value(String element, String value) {
+		assertThat(onBaymax.getValueField(element), equalTo(value));
+	}
+	
+	@Step
+	public void assert_that_the_value_not(String element, String value) {
+		assertThat(onBaymax.getValueField(element), not(equalTo(value)));
+	}
 
+	@Step
+	public void assert_that_the_value_has(String element, String value) {
+		assertThat(onBaymax.getValueField(element), containsString(value));
+	}
 
+	public void assert_that_the_value_has_no(String element, String value) {
+		assertThat(onBaymax.getValueField(element), not(containsString(value)));
+	}
 }

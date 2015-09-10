@@ -314,5 +314,25 @@ public class DefinitionSteps {
 	public void assert_that_text_on_popup_box_is(String value){
 		baymax.text_on_popup_box_is(value);
 	}
+	
+	@Then("^assert that the value of \"([^\"]*)\" is \"([^\"]*)\"$")
+	public void assert_that_the_value_of_is(String element, String value){
+		baymax.assert_that_the_value(element,value);
+	}
+
+	@Then("^assert that the value of \"([^\"]*)\" is not \"([^\"]*)\"$")
+	public void assert_that_the_value_of_is_not(String element, String value){
+		baymax.assert_that_the_value_not(element,value);
+	}
+
+	@Then("^assert that the value of \"([^\"]*)\" has \"([^\"]*)\"$")
+	public void assert_that_the_value_of_has(String element, String value){
+		baymax.assert_that_the_value_has(element,value);
+	}
+
+	@Then("^assert that the value of \"([^\"]*)\" does not have \"([^\"]*)\"$")
+	public void assert_that_the_value_of_does_not_have(String element, String value){
+		baymax.assert_that_the_value_has_no(element,value);
+	}
 
 }

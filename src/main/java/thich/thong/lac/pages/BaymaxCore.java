@@ -316,4 +316,8 @@ public class BaymaxCore extends PageObject {
 		getAlert().accept();
 		return textPop;
 	}
+
+	public String getValueField(String element) {
+		return element(getWebElement(element)).getValue();
+	}
 }
