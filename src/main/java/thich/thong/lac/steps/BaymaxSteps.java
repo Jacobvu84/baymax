@@ -354,4 +354,40 @@ public class BaymaxSteps extends ScenarioSteps {
 	public void assert_that_the_value_has_no(String element, String value) {
 		assertThat(onBaymax.getValueField(element), not(containsString(value)));
 	}
+	
+	@Step
+	public void select_label_from_drop_down_list(String visibleLabel, String element) {
+		WebElement webElement = onBaymax.getWebElement(element);
+		onBaymax.selectFromDropdown(webElement, visibleLabel);
+	}
+
+	@Step
+	public void select_value_from_drop_down_list(String valueOption, String element) {
+		onBaymax.selectValueInListBox(valueOption, element);
+	}
+
+	@Step
+	public void select_index_from_drop_down_list(int indexOption, String element) {
+		onBaymax.selectIndexInListBox(indexOption, element);
+	}
+	
+	@Step
+	public void add_multi_select_options_from_drop_down_list(String listOption, String element) {
+		onBaymax.clickOptionItem(listOption, element);
+	}
+
+	@Step
+	public void remove_multi_select_options_from_drop_down_list(String listOption, String element) {
+		onBaymax.clickOptionItem(listOption, element);
+	}
+	
+	@Step
+	public void the_option_label_in_should_be_selected(String visibleText, String element) {
+		assertThat(onBaymax.isOptionSelected(element), equalTo(visibleText));
+	}
+
+	@Step
+	public void the_option_label_in_should_not_be_selected(String visibleText, String element) {
+		assertThat(onBaymax.isOptionSelected(element), not(equalTo(visibleText)));
+	}
 }

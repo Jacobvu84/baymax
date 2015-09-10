@@ -320,4 +320,35 @@ public class BaymaxCore extends PageObject {
 	public String getValueField(String element) {
 		return element(getWebElement(element)).getValue();
 	}
+	
+	public void clickOptionItem(String listOption, String element) {
+
+		WebElement select = element(getWebElement(element));
+		java.util.List<WebElement> list = select.findElements(By.tagName("option"));
+		String Data[] = listOption.split(",");
+
+		for (int i = 0; i < Data.length; i++) {
+			for (int j = 0; j < list.size(); j++) {
+				String str = list.get(j).getText();
+				if (str.equalsIgnoreCase(Data[i])) {
+					select.sendKeys(Keys.CONTROL);
+					list.get(j).click();
+					break;
+				}
+			} // j
+		} // i
+	}
+	
+	public void selectValueInListBox(String valueOption, String element) {
+		element(getWebElement(element)).selectByValue(valueOption);
+	}
+
+	public void selectIndexInListBox(int indexOption, String element) {
+		element(getWebElement(element)).selectByIndex(indexOption);
+	}
+	
+	public String isOptionSelected(String element) {
+		return element(getWebElement(element)).getSelectedVisibleTextValue();
+	}
+
 }

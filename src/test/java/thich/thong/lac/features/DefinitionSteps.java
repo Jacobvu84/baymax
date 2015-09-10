@@ -334,5 +334,40 @@ public class DefinitionSteps {
 	public void assert_that_the_value_of_does_not_have(String element, String value){
 		baymax.assert_that_the_value_has_no(element,value);
 	}
+	
+	@When("^select \"(.*?)\" label from \"(.*?)\" drop-down list$")
+	public void select_label_from_drop_down_list(String visibleLabel, String element) throws Throwable {
+		baymax.select_label_from_drop_down_list(visibleLabel, element);
+	}
+
+	@When("^select \"(.*?)\" value from \"(.*?)\" drop-down list$")
+	public void select_value_from_drop_down_list(String valueOption, String element) throws Throwable {
+		baymax.select_value_from_drop_down_list(valueOption, element);
+	}
+
+	@When("^select (\\d+) index from \"(.*?)\" drop-down list$")
+	public void select_index_from_drop_down_list(int indexOption, String element) throws Throwable {
+		baymax.select_index_from_drop_down_list(indexOption, element);
+	}
+
+	@When("^add multi-select \"([^\"]*)\" options from \"([^\"]*)\" drop-down list$")
+	public void add_multi_select_options_from_drop_down_list(String listOption, String element) throws Throwable {
+		baymax.add_multi_select_options_from_drop_down_list(listOption, element);
+	}
+
+	@When("^remove multi-select \"([^\"]*)\" options from \"([^\"]*)\" drop-down list$")
+	public void remove_multi_select_options_from_drop_down_list(String listOption, String element) throws Throwable {
+		baymax.remove_multi_select_options_from_drop_down_list(listOption, element);
+	}
+	
+	@Then("^the \"(.*?)\" option label in \"(.*?)\" should be selected$")
+	public void the_option_label_in_should_be_selected(String visibleText, String element) throws Throwable {
+		baymax.the_option_label_in_should_be_selected(visibleText, element);
+	}
+
+	@Then("^the \"(.*?)\" option label in \"(.*?)\" should not be selected$")
+	public void the_option_label_in_should_not_be_selected(String visibleText, String element) throws Throwable {
+		baymax.the_option_label_in_should_not_be_selected(visibleText, element);
+	}
 
 }

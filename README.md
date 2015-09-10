@@ -17,15 +17,15 @@ Trao đổi những vấn đề trong việc phát triển và sử dụng
 *** 
 
 Yêu cầu môi trường
-* [Java 8](https://www.youtube.com/watch?v=bQLbrXHiFxY). Nhớ họn java version 8 nhé ^^
+* [Java 8](https://www.youtube.com/watch?v=bQLbrXHiFxY)
 * [Maven 3.3.x](https://www.youtube.com/watch?v=wWSVxtsi7U8)
 
-## Giấy phép và bản quyền - License and Copyright
-
-Phần mềm này dựa trên nền tảng của Selenium WebDriver, sử dụng thư viện Serenity BDD.
+## Giấy phép và bản quyền
 
 Copyright 2015 The Baymax Software Foundation
 
-Non-commercial
+Phát triển bởi baymax và những người bạn
 
-Thank you for using Baymax.
+Miễn phí
+
+Cám ơn đã sử dụng Baymax.
