@@ -1,8 +1,10 @@
 package thich.thong.lac.pages;
+import java.awt.AWTException;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -19,6 +21,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.remote.server.handler.GetAlertText;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -349,6 +353,137 @@ public class BaymaxCore extends PageObject {
 	
 	public String isOptionSelected(String element) {
 		return element(getWebElement(element)).getSelectedVisibleTextValue();
+	}
+	
+	public void clickElementAt(String element, int xOffset, int yOffset) {
+		WebElement toElement = element(getWebElement(element));
+		withAction().moveToElement(toElement, xOffset, yOffset).click().perform();
+	}
+	
+	public void doubleClickElement(String element) {
+		WebElement onElement = element(getWebElement(element));
+		withAction().doubleClick(onElement).perform();
+	}
+
+	public void doubleClickElementAt(String element, int xOffset, int yOffset) {
+		WebElement toElement = element(getWebElement(element));
+		withAction().moveToElement(toElement, xOffset, yOffset).doubleClick().perform();
+	}
+	
+	public void rightClickElement(String element) {
+		WebElement link = element(getWebElement(element));
+		withAction().contextClick(link).perform();
+	}
+
+	public void rightClickElementAt(String element, int xOffset, int yOffset) {
+		WebElement toElement = element(getWebElement(element));
+		withAction().moveToElement(toElement, xOffset, yOffset).contextClick().perform();
+	}
+	
+	public void pressItemOnContentMenu(String element, int indexItem) {
+		try {
+			WebElement link = element(getWebElement(element));
+			Actions action = new Actions(getDriver());
+			action.moveToElement(link).contextClick().perform();
+			for (int i = 1; i <= indexItem; i++) {
+				action.sendKeys(Keys.ARROW_DOWN);
+			}
+			action.sendKeys(Keys.ENTER).perform();
+		} catch (MoveTargetOutOfBoundsException e) {
+			e.getStackTrace();
+		}
+	}
+	
+	public void clickAndHoldElement(String element) {
+		WebElement elementToMove = getWebElement(element);
+		Actions builder = new Actions(getDriver());
+		Action drag = builder.clickAndHold(elementToMove).build();
+		drag.perform();
+	}
+
+	public void moveMouseToElement(String element) {
+		WebElement moveToElement = getWebElement(element);
+
+		Actions builder = new Actions(getDriver());
+		Action dragAndDrop = builder.moveToElement(moveToElement).release(moveToElement).build();
+		dragAndDrop.perform();
+	}
+
+	public void moveMouseToElementAt(String element, int xOffset, int yOffset) {
+		WebElement moveToElement = getWebElement(element);
+
+		Actions builder = new Actions(getDriver());
+		Action dragAndDrop = builder.moveToElement(moveToElement, xOffset, yOffset).release(moveToElement).build();
+		dragAndDrop.perform();
+	}
+	
+	public void drag_the_and_drop_to_the(String resouce, String dest) {
+
+		WebElement elementToMove = getWebElement(resouce);
+		Actions builder = new Actions(getDriver());
+		Action drag = builder.clickAndHold(elementToMove).build();
+		drag.perform();
+
+		WebElement moveToElement = getWebElement(dest);
+		Actions builder2 = new Actions(getDriver());
+		Action dragAndDrop = builder2.moveToElement(moveToElement).release(moveToElement).build();
+		dragAndDrop.perform();
+	}
+	
+	public void drag_the_and_drop_html5(String resouce, String des, int xOffset, int yOffset) throws AWTException {
+
+		WebElement dragFrom = getWebElement(resouce);
+		WebElement dragTo = getWebElement(des);
+
+		// Setup robot
+		Robot robot = new Robot();
+		robot.setAutoDelay(500);
+
+		// Get size of elements
+		Dimension fromSize = dragFrom.getSize();
+		Dimension toSize = dragTo.getSize();
+
+		// Get center distance
+		int xCentreFrom = fromSize.width / 2;
+		int yCentreFrom = fromSize.height / 2;
+		int xCentreTo = toSize.width / 2;
+		int yCentreTo = toSize.height / 2;
+
+		Point toLocation = dragTo.getLocation();
+		Point fromLocation = dragFrom.getLocation();
+		System.out.println(fromLocation.toString());
+
+		// Make Mouse coordinate center of element
+		toLocation.x += xOffset + xCentreTo;
+		toLocation.y += yOffset + yCentreTo;
+		fromLocation.x += xOffset + xCentreFrom;
+		fromLocation.y += yOffset + yCentreFrom;
+
+		System.out.println(fromLocation.toString());
+
+		// Move mouse to drag from location
+		robot.mouseMove(fromLocation.x, fromLocation.y);
+		// Click and drag
+		robot.mousePress(InputEvent.BUTTON1_MASK);
+		robot.mouseMove(((toLocation.x - fromLocation.x) / 2) + fromLocation.x,
+				((toLocation.y - fromLocation.y) / 2) + fromLocation.y);
+
+		// Move to final position
+		robot.mouseMove(toLocation.x, toLocation.y);
+		// Drop
+		robot.mouseRelease(InputEvent.BUTTON1_MASK);
+	}
+	
+	public void checkBox(String element) {
+		setCheckbox(getWebElement(element), true);
+	}
+
+	public void uncheckBox(String element) {
+		setCheckbox(getWebElement(element), false);
+	}
+	
+	public void navigate_to(String url) {
+		getDriver().navigate().to(url);
 	}
 
 }

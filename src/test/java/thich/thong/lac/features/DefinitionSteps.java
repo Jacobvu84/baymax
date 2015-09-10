@@ -261,7 +261,7 @@ public class DefinitionSteps {
 	}
 
 	@When("^\"([^\"]*)\" element is clicked$")
-	public void click_on_the(String target){
+	public void element_is_clicked(String target){
 		baymax.click_on_the(target);
 	}
 	
@@ -360,14 +360,99 @@ public class DefinitionSteps {
 		baymax.remove_multi_select_options_from_drop_down_list(listOption, element);
 	}
 	
-	@Then("^the \"(.*?)\" option label in \"(.*?)\" should be selected$")
+	@Then("^the \"(.*?)\" option label in \"(.*?)\" is selected$")
 	public void the_option_label_in_should_be_selected(String visibleText, String element) throws Throwable {
 		baymax.the_option_label_in_should_be_selected(visibleText, element);
 	}
 
-	@Then("^the \"(.*?)\" option label in \"(.*?)\" should not be selected$")
+	@Then("^the \"(.*?)\" option label in \"(.*?)\" is not selected$")
 	public void the_option_label_in_should_not_be_selected(String visibleText, String element) throws Throwable {
 		baymax.the_option_label_in_should_not_be_selected(visibleText, element);
+	}
+	
+	@When("^\"([^\"]*)\" element is clicked at coordinates \\((\\d+),(\\d+)\\)$")
+	public void element_is_clicked_at_coordinates(String element, int xOffset, int yOffset) {
+		baymax.click_on_the_at_coordinates(element, xOffset, yOffset);
+	}
+	
+	@When("^\"([^\"]*)\" element is double-clicked$")
+	public void element_is_double_clicked(String element){
+		baymax.double_click_on_the(element);
+	}
+	
+	@When("^\"([^\"]*)\" element is double clicked at coordinates \\((\\d+),(\\d+)\\)$")
+	public void element_is_double_clicked_at_coordinates(String element, int xOffset, int yOffset) throws Throwable {
+		baymax.double_click_on_the_at_coordinates(element, xOffset, yOffset);
+	}
+
+	@When("^\"([^\"]*)\" element is right clicked$")
+	public void element_is_right_clicked(String element){
+		baymax.right_click_on_the(element);
+	}
+
+	@When("^\"([^\"]*)\" element is right clicked and press on item has index is (\\d+)$")
+	public void element_is_right_clicked_and_press_on_item_has_index_is(String element, int indexItem){
+		baymax.right_click_on_the_and_click_on_item_has_index(element, indexItem);
+	}
+
+	@Given("^\"([^\"]*)\" element is right clicked t coordinates \\((\\d+),(\\d+)\\)$")
+	public void element_is_right_clicked_t_coordinates(String element, int xOffset, int yOffset){
+		baymax.right_click_on_the_at_coordinates(element, xOffset, yOffset);
+	}
+
+	@When("^\"([^\"]*)\" is clicked without releasing$")
+	public void element_is_clicked_without_releasing(String element) {
+		baymax.click_and_hold(element);
+	}
+
+	@When("^mouse is moved to \"([^\"]*)\"$")
+	public void mouse_is_moved_to(String element){
+		baymax.move_mouse_to(element);
+	}
+
+	@When("^mouse is moved to \"([^\"]*)\" at coordinates \\((\\d+),(\\d+)\\)$")
+	public void mouse_is_moved_to_at_coordinates(String element, int xOffset, int yOffset) {
+		baymax.move_mouse_to_at_coordinates(element, xOffset, yOffset);
+	}
+	
+	@When("^drag the \"([^\"]*)\" and drop to the \"([^\"]*)\"$")
+	public void drag_the_and_drop_to_the(String resouce, String dest) throws Throwable {
+		baymax.drag_the_and_drop_to_the(resouce, dest);
+	}
+
+	@When("^drag the \"([^\"]*)\" and drop to the \"([^\"]*)\" in html5$")
+	public void html5_drag_the_and_drop_to_the(String resouce, String dest) throws Throwable {
+		baymax.html5_drag_the_and_drop_to_the(resouce, dest);
+	}
+	
+	@When("^store the text of \"([^\"]*)\" element in \"([^\"]*)\" variable$")
+	public void store_the_text_of_element_in_variable(String element, String var) throws Throwable {
+		baymax.store_the_text_of_element_in_variable(element, var);
+	}
+	
+	@Then("^\"([^\"]*)\" variable should be \"([^\"]*)\"$")
+	public void variable_should_be(String var, String valueCompare) throws Throwable {
+		baymax.variable_should_be(var, valueCompare);
+	}
+	
+	@When("^check on \"([^\"]*)\" element$")
+	public void check_checkbox(String element) throws Throwable {
+		baymax.check_checkbox(element);
+	}
+
+	@When("^uncheck on \"([^\"]*)\" element$")
+	public void uncheck_checkbox(String element) throws Throwable {
+		baymax.uncheck_checkbox(element);
+	}
+ 
+	@When("^enter into the \"(.*?)\" field with \"(.*?)\" variable$")
+	public void enter_into_the_field_with_variable(String target, String var) throws Throwable {
+		baymax.enter_into_the_field_with_variable(target, var);
+	}
+
+	@When("^navigate to \"(.*?)\"$")
+	public void navigate_to(String url) throws Throwable {
+		baymax.navigate_to(url);
 	}
 
 }

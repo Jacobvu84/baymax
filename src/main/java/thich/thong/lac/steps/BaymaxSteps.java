@@ -5,15 +5,13 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
+import java.awt.AWTException;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.server.handler.GetAlertText;
-
-import com.thoughtworks.selenium.webdriven.commands.GetConfirmation;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -389,5 +387,94 @@ public class BaymaxSteps extends ScenarioSteps {
 	@Step
 	public void the_option_label_in_should_not_be_selected(String visibleText, String element) {
 		assertThat(onBaymax.isOptionSelected(element), not(equalTo(visibleText)));
+	}
+	
+	@Step
+	public void click_on_the_at_coordinates(String element, int xOffset, int yOffset) {
+		onBaymax.clickElementAt(element, xOffset, yOffset);
+	}
+	
+	@Step
+	public void double_click_on_the(String element) {
+		onBaymax.doubleClickElement(element);
+	}
+
+	@Step
+	public void double_click_on_the_at_coordinates(String element, int xOffset, int yOffset) {
+		onBaymax.doubleClickElementAt(element, xOffset, yOffset);
+	}
+	
+	@Step
+	public void right_click_on_the(String element) {
+		onBaymax.rightClickElement(element);
+	}
+
+	@Step
+	public void right_click_on_the_at_coordinates(String element, int xOffset, int yOffset) {
+		onBaymax.rightClickElementAt(element, xOffset, yOffset);
+	}
+
+	@Step
+	public void right_click_on_the_and_click_on_item_has_index(String element, int indexIterm) {
+		onBaymax.pressItemOnContentMenu(element, indexIterm);
+	}
+	
+	@Step
+	public void click_and_hold(String element) {
+		onBaymax.clickAndHoldElement(element);
+	}
+
+	@Step
+	public void move_mouse_to(String element) {
+		onBaymax.moveMouseToElement(element);
+	}
+
+	@Step
+	public void move_mouse_to_at_coordinates(String element, int xOffset, int yOffset) {
+		onBaymax.moveMouseToElementAt(element, xOffset, yOffset);
+	}
+	
+	@Step
+	public void drag_the_and_drop_to_the(String resouce, String dest) {
+		onBaymax.drag_the_and_drop_to_the(resouce, dest);
+	}
+
+	@Step
+	public void html5_drag_the_and_drop_to_the(String resouce, String dest) throws AWTException {
+		onBaymax.drag_the_and_drop_html5(resouce, dest, 0, 70);
+	}
+	
+	@Step
+	public void store_the_text_of_element_in_variable(String element, String var) {
+		String value = onBaymax.getWebElement(element).getText();
+		listVar.put(var, value);
+	}
+	
+	@Step
+	public void variable_should_be(String var, String valueCompare) {
+		assertThat(listVar.get(var), equalTo(valueCompare));
+	}
+	
+	@Step
+	public void check_checkbox(String element) {
+		onBaymax.checkBox(element);
+	}
+
+	@Step
+	public void uncheck_checkbox(String element) {
+		onBaymax.uncheckBox(element);
+	}
+	
+	@Step
+	public void navigate_to(String url) {
+		onBaymax.navigate_to(url);
+	}
+
+	@Step
+	public void enter_into_the_field_with_variable(String element, String var) {
+		WebElement webElement = onBaymax.getWebElement(element);
+		onBaymax.waitFor(webElement);
+		onBaymax.element(webElement).clear();
+		onBaymax.element(webElement).sendKeys(listVar.get(var));
 	}
 }
