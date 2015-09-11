@@ -8,4 +8,4 @@ Feature: Calculator
     And press "3" button
     And press "equals" button
     Then the result is "24"
-    Then the result is "66"
+    Then the result is not "66"
