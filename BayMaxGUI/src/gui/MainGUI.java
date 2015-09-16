@@ -5,15 +5,12 @@
  */
 package gui;
 
+import entities.AssertElement;
 import entities.Scenario;
 import entities.TestSuite;
 import entities.Visit;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreePath;
 import model.TestSuiteTreeModel;
 
 /**
@@ -27,19 +24,19 @@ public class MainGUI extends javax.swing.JFrame {
      *
      * @param title
      */
-    public MainGUI(String title) {
+    public MainGUI(String title) throws InstantiationException {
         initComponents();
         initFeatureTree();
         this.setTitle(title);
 
     }
 
-    private void initFeatureTree() {
+    private void initFeatureTree() throws InstantiationException {
         trFeature.setModel(new TestSuiteTreeModel(prepareTree()));
 
         trFeature.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent e) {
-                showDetailsPanel(trFeature.getLastSelectedPathComponent());                
+                showDetailsPanel(trFeature.getLastSelectedPathComponent());
             }
         });
     }
@@ -49,19 +46,25 @@ public class MainGUI extends javax.swing.JFrame {
             VisitGUI visit = new VisitGUI((Visit) node);
             spDetails.setViewportView(visit);
         }
-        if (node instanceof Scenario){
-            ScenarioGUI scenario = new ScenarioGUI((Scenario)node);
+        if (node instanceof Scenario) {
+            ScenarioGUI scenario = new ScenarioGUI((Scenario) node);
             spDetails.setViewportView(scenario);
+        }
+        if (node instanceof AssertElement) {
+            AssertGUI assertGUI = new AssertGUI((AssertElement) node);
+            spDetails.setViewportView(assertGUI);
         }
     }
 
-    private TestSuite prepareTree() {
+    private TestSuite prepareTree() throws InstantiationException {
         TestSuite ts = new TestSuite("first test suite");
         for (int i = 0; i < 5; i++) {
             Scenario sc = new Scenario("Scenario " + i);
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < 2; j++) {
                 Visit vs = new Visit();
                 sc.addNewCase(vs);
+                AssertElement ae = new AssertElement("Element", true, true, "Attribute", true, "is not", "Value", "is", null, "visible");
+                sc.addNewCase(ae);
             }
             ts.addScenario(sc);
         }
