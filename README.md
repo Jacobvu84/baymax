@@ -20,6 +20,16 @@ Yêu cầu môi trường
 * [Java 8](https://www.youtube.com/watch?v=bQLbrXHiFxY)
 * [Maven 3.3.x](https://www.youtube.com/watch?v=wWSVxtsi7U8)
 
+***
+
+Contributing
+
+Fork it
+* Create your feature branch (git checkout -b my-new-feature)
+* Commit your changes (git commit -am 'Add some feature')
+* Push to the branch (git push origin my-new-feature)
+* Create new Pull Request
+
 ## Giấy phép và bản quyền
 
 Copyright 2015 The Baymax Software Foundation
