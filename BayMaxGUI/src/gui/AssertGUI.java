@@ -26,7 +26,6 @@ public class AssertGUI extends javax.swing.JPanel {
         initComponents();
         this.assertElement = assertElement;
         prepareGUI();
-        this.lblAssert.setText(assertElement.toString());
     }
 
     private void prepareGUI() {
@@ -47,9 +46,11 @@ public class AssertGUI extends javax.swing.JPanel {
                 txtAttributeValue.setText(assertElement.getAttributeValue());
             } else {
                 cbAttributeValue.setSelected(false);
+                setDisabledAttributeValueSection();
             }
         } else {
             cbElementAttribute.setSelected(false);
+            setDisabledAttributeSection();
         }
         if (!"-".equals(assertElement.getElementComparator())) {
             cbbElementComparators.setSelectedItem(assertElement.getElementComparator());
@@ -57,6 +58,7 @@ public class AssertGUI extends javax.swing.JPanel {
                 rdText.setSelected(true);
                 txtText.setText(assertElement.getText());
             } else {
+                txtText.setEnabled(false);
                 for (Enumeration<AbstractButton> radios = bgElementStates.getElements(); radios.hasMoreElements();) {
                     JRadioButton rd = (JRadioButton) radios.nextElement();
                     if (assertElement.getElementState().equals(rd.getText())) {
@@ -65,8 +67,11 @@ public class AssertGUI extends javax.swing.JPanel {
                 }
             }
         } else {
-            cbbElementComparators.setSelectedItem("-");
+            cbbElementComparators.setSelectedItem(comparatorIndexOfNone);
+            setDisabledElementStateSection();
         }
+        
+        lblAssert.setText(assertElement.toString());
     }
 
     private void setEnableAttributeSection() {
@@ -77,6 +82,7 @@ public class AssertGUI extends javax.swing.JPanel {
     }
 
     private void setDisabledAttributeSection() {
+        cbbAttributeComparators.setSelectedIndex(comparatorIndexOfNone);
         cbbAttributeComparators.setEnabled(false);
         lblAttribute.setEnabled(false);
         cbAttributeValue.setSelected(false);
@@ -111,42 +117,37 @@ public class AssertGUI extends javax.swing.JPanel {
     }
 
     private void save() throws InstantiationException {
-        assertElement.setElement(txtElement.getText());
-        if (cbElementAttribute.isSelected()) {
-            assertElement.setHasAttribute(true);
-            assertElement.setAttribute(txtAttribute.getText());
-            if (cbbAttributeComparators.getSelectedIndex() == 0) {
-                assertElement.setAttributeComparator(true);
+        if (validateForm()) {
+            assertElement.setElement(txtElement.getText());
+            if (cbElementAttribute.isSelected()) {
+                assertElement.setHasAttribute(true);
+                assertElement.setAttribute(txtAttribute.getText());
+                if (cbbAttributeComparators.getSelectedIndex() == 1) {
+                    assertElement.setAttributeComparator(true);
+                } else {
+                    assertElement.setAttributeComparator(false);
+                }
+                if (cbAttributeValue.isSelected()) {
+                    assertElement.setAttributeHasValue(true);
+                    assertElement.setAttributeValueComparator(cbbAttributeValueComparators.getSelectedItem().toString());
+                    assertElement.setAttributeValue(txtAttributeValue.getText());
+                } else {
+                    assertElement.setAttributeHasValue(false);
+                    assertElement.setAttributeValue("");
+                }
             } else {
-                assertElement.setAttributeComparator(false);
-            }
-            if (cbAttributeValue.isSelected()) {
-                assertElement.setAttributeHasValue(true);
-                assertElement.setAttributeValueComparator(cbbAttributeValueComparators.getSelectedItem().toString());
-                assertElement.setAttributeValue(txtAttributeValue.getText());
-            } else {
+                assertElement.setAttribute("");
+                assertElement.setHasAttribute(false);
                 assertElement.setAttributeHasValue(false);
                 assertElement.setAttributeValue("");
             }
-        } else {
-            assertElement.setAttribute("");
-            assertElement.setHasAttribute(false);
-            assertElement.setAttributeHasValue(false);
-            assertElement.setAttributeValue("");
-        }
 
-        if (cbbElementComparators.getSelectedIndex() != 0) {
             assertElement.setElementComparator(cbbElementComparators.getSelectedItem().toString());
-            if (rdText.isSelected()) {
-                if (cbbElementComparators.getSelectedIndex() == 1 || cbbElementComparators.getSelectedIndex() == 2) {
-                    showErrorMessage("Should use \"is\" or \"is not\" only when asserting element state!");
-                } else {
+            if (cbbElementComparators.getSelectedIndex() != 0) {
+                if (rdText.isSelected()) {
+
                     assertElement.setElementState("text");
                     assertElement.setText(txtText.getText());
-                }
-            } else {
-                if (cbbElementComparators.getSelectedIndex() != 1 && cbbElementComparators.getSelectedIndex() != 2) {
-                    showErrorMessage("Should use \"is\" or \"is not\" only when asserting element state!");
                 } else {
                     for (Enumeration<AbstractButton> radios = bgElementStates.getElements(); radios.hasMoreElements();) {
                         JRadioButton rd = (JRadioButton) radios.nextElement();
@@ -158,7 +159,62 @@ public class AssertGUI extends javax.swing.JPanel {
                 }
             }
         }
+        prepareGUI();
+    }
 
+    private boolean validateForm() {
+        if ("".equals(txtElement.getText())) {
+            showErrorMessage("Element should not be blank!");
+            return false;
+        }
+        if (cbElementAttribute.isSelected()) {
+            if (cbbAttributeComparators.getSelectedIndex() == comparatorIndexOfNone) {
+                showErrorMessage("Comparator for attribute of element should not be blank!");
+                return false;
+            } else {
+                if ("".equals(txtAttribute.getText())) {
+                    showErrorMessage("Attribute should not be blank!");
+                    return false;
+                }
+                if (cbAttributeValue.isSelected()) {
+                    if (cbbAttributeValueComparators.getSelectedIndex() == comparatorIndexOfNone) {
+                        showErrorMessage("Comparator for value of attribute should not be blank!");
+                        return false;
+                    } else {
+                        if ("".equals(txtAttributeValue.getText())) {
+                            showErrorMessage("Attribute value should not be blank!");
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        if (cbbElementComparators.getSelectedIndex() != comparatorIndexOfNone) {
+            if (rdText.isSelected()) {
+                if (cbbElementComparators.getSelectedIndex() == 1 || cbbElementComparators.getSelectedIndex() == 2) {
+                    showErrorMessage("The element comparator \"is\" or \"is not\" should not be used only when asserting text of element!");
+                    return false;
+                }
+                if ("".equals(txtText.getText())) {
+                    showErrorMessage("Text should not be blank!");
+                    return false;
+                }
+            } else {
+                for (Enumeration<AbstractButton> radios = bgElementStates.getElements(); radios.hasMoreElements();) {
+                    JRadioButton rd = (JRadioButton) radios.nextElement();
+                    if (rd.isSelected()) {
+                        if (cbbElementComparators.getSelectedIndex() != 1 && cbbElementComparators.getSelectedIndex() != 2) {
+                            showErrorMessage("The element comparator \"is\" or \"is not\" should be used when asserting state of element!");
+                            return false;
+                        }
+                        return true;
+                    }
+                }
+                showErrorMessage("One of expectation for element should be selected!");
+                return false;
+            }
+        }
+        return true;
     }
 
     private void showErrorMessage(String text) {
@@ -437,7 +493,7 @@ public class AssertGUI extends javax.swing.JPanel {
     private javax.swing.JTextField txtText;
     // End of variables declaration//GEN-END:variables
     private AssertElement assertElement;
-    private final int attributeComparatorIndexOfNone = 0;
+    private final int comparatorIndexOfNone = 0;
     private final int attributeComparatorIndexOfHas = 1;
     private final int attributeComparatorIndexOfNotHas = 2;
 }
