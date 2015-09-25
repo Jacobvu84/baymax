@@ -13,4 +13,5 @@ Makefile.in
 /missing
 /stamp-h1
 /target
-
+/BayMaxGUI/build
+/BayMaxGUI/nbproject/private
