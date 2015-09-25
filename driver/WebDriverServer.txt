@@ -3,3 +3,7 @@ IEDriverServer_Win32_2: http://selenium-release.storage.googleapis.com/2.47/IEDr
 IEDriverServer_x64_2:   http://selenium-release.storage.googleapis.com/2.47/IEDriverServer_x64_2.47.0.zip
 ChromeDriverServer:     http://chromedriver.storage.googleapis.com/index.html?path=2.18/
 
+Set name for IE driver is IEDriverServer.exe
+Set name for Chrome driver is chromedriver.exe
+
+

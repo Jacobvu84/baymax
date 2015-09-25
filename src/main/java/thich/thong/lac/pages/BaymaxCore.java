@@ -8,7 +8,9 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import javax.imageio.ImageIO;
 
@@ -24,15 +26,27 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
-import org.openqa.selenium.remote.server.handler.GetAlertText;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import net.thucydides.core.pages.PageObject;
+import thich.thong.lac.util.LoadObject;
 
 public class BaymaxCore extends PageObject {
 	
 	String defaultWindow = "";
+	
+	public static Properties OBJECT;
+	public static Properties CONFIG;
+	
+	public BaymaxCore() {
+		try {
+			OBJECT = LoadObject.loading_object_repository("objects");
+			//CONFIG = LoadObject.loading_config_sys("setting.properties");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public  WebElement getWebElement(String target) {
 		try {
