@@ -32,7 +32,6 @@ public class MySQLConnection {
 		
 		BD_USER     = DB_CONFIG.getProperty("mysql.db.user");
 		BD_PWD      = DB_CONFIG.getProperty("mysql.db.pwd");
-
 	}
 
 	public static ResultSet executeQuery(String myQueries) {
