@@ -26,6 +26,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
+import org.openqa.selenium.security.UserAndPassword;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -305,6 +306,7 @@ public class BaymaxCore extends PageObject {
 	public void dismissPopUp() {
 		waitForAlert();
 		getAlert().dismiss();
+		//getAlert().authenticateUsing(new UserAndPassword("admin", "admin"));
 	}
 	
 	public void answerPopUp(String answer, String element) {

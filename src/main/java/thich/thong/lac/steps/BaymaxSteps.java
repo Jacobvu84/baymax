@@ -11,7 +11,10 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+
+import com.thoughtworks.selenium.webdriven.commands.GetAlert;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -23,6 +26,17 @@ public class BaymaxSteps extends ScenarioSteps {
 	BaymaxCore onBaymax;
 
 	HashMap<String, String> listVar = new HashMap<String, String>();	
+	
+	@Step
+	public void enter_into_the_ckeditor_with(String iframe, String value) {
+		swich_to_frame(iframe);
+		WebElement inputsummary = null;
+		inputsummary = getDriver().switchTo().activeElement();
+		inputsummary.click();
+		inputsummary.clear();
+		((JavascriptExecutor) getDriver()).executeScript("document.body.innerHTML='" + value + "' + document.body.innerHTML;");
+		swich_back_to_parent_frame();
+	}
 
 	@Step
 	public void visit() {
