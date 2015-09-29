@@ -51,7 +51,8 @@ public class BaymaxCore extends PageObject {
 	
 	public  WebElement getWebElement(String target) {
 		try {
-			return getDriver().findElement(getObject(target));
+			String locator = OBJECT.getProperty(target);
+			return getDriver().findElement(getObject(locator));
 
 		} catch (NoSuchElementException e) {
 			e.getMessage();
