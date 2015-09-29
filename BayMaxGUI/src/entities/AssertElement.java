@@ -25,13 +25,16 @@ public class AssertElement implements TestCase {
     private String elementComparator;
     private String text;
     private String elementState;
+    private String imageComparator;
+    private String imageLocation;
 
-    private String[] elementStates = {"disabled", "enabled", "present", "absent", "visible", "hidden", "text"};
+    private String[] elementStates = {"disabled", "enabled", "present", "absent", "visible", "hidden", "text", "image"};
     private String[] attributeComparatorsArray = {"-", "has", "does not have"};
+    private String[] imageComparatorsArray = {"-", "similar to", "not similar to"};
     private String[] attributeValueComparatorsArray = {"-", "is", "is not", "includes", "does not includes"};
     private String[] elementComparatorsArray = {"-", "is", "is not", "has", "does not have", "includes", "does not include"};
 
-    public AssertElement(String element, boolean hasAttribute, boolean attributeComparator, String attribute, boolean attributeHasValue, String attributeValueComparators, String attributeValue, String elementComparators, String text, String elementState)
+    public AssertElement(String element, boolean hasAttribute, boolean attributeComparator, String attribute, boolean attributeHasValue, String attributeValueComparators, String attributeValue, String elementComparators, String text, String elementState, String imageComparator, String imageLocation)
             throws InstantiationException {
         this.element = element;
         this.hasAttribute = hasAttribute;
@@ -55,6 +58,8 @@ public class AssertElement implements TestCase {
         } else {
             throw new InstantiationException();
         }
+        this.imageComparator = imageComparator;
+        this.imageLocation = imageLocation;
     }
 
     public AssertElement() {
@@ -62,7 +67,7 @@ public class AssertElement implements TestCase {
     }
 
     public String toString() {
-        String str = "Assert \"" + element + "\"";
+        String str = "Assert element \"" + element + "\"";
         if (hasAttribute) {
             str = str + " which ";
             if (attributeComparator) {
@@ -70,7 +75,7 @@ public class AssertElement implements TestCase {
             } else {
                 str = str + "does not have ";
             }
-            str = str + "\"" + attribute + "\"";
+            str = str + "attribute \"" + attribute + "\"";
             if (attributeHasValue) {
                 str = str + " with the value that " + attributeValueComparator + " \"" + attributeValue + "\"";
             }
@@ -78,7 +83,11 @@ public class AssertElement implements TestCase {
         if (!"-".equals(elementComparator)) {
             str = str + " " + elementComparator;
             if (!"text".equals(elementState)) {
-                str = str + " " + elementState;
+                if ("image".equals(elementState)) {
+                        str = str + " its image "+imageComparator+" \"" + imageLocation + "\"";
+                } else {
+                    str = str + " " + elementState;
+                }
             } else {
                 str = str + " \"" + text + "\"";
             }
@@ -181,12 +190,32 @@ public class AssertElement implements TestCase {
     public void setElementState(String elementState) throws InstantiationException {
         if (Arrays.asList(elementStates).contains(elementState)) {
             this.elementState = elementState;
-            if(!"text".equals(elementState)){
+            if (!"text".equals(elementState)) {
                 setText("");
             }
         } else {
             throw new InstantiationException();
         }
+    }
+
+    public String getImageComparator() {
+        return imageComparator;
+    }
+
+    public void setImageComparator(String imageComparator) throws InstantiationException {
+        if (Arrays.asList(imageComparatorsArray).contains(imageComparator)) {
+            this.imageComparator = imageComparator;            
+        } else {
+            throw new InstantiationException();
+        }
+    }
+
+    public String getImageLocation() {
+        return imageLocation;
+    }
+
+    public void setImageLocation(String imageLocation) {
+        this.imageLocation = imageLocation;
     }
 
 }
