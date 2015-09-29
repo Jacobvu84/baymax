@@ -63,7 +63,7 @@ public class MainGUI extends javax.swing.JFrame {
             for (int j = 0; j < 2; j++) {
                 Visit vs = new Visit();
                 sc.addNewCase(vs);
-                AssertElement ae = new AssertElement("Element", true, true, "Attribute", true, "is not", "Value", "is", null, "visible");
+                AssertElement ae = new AssertElement("Element", true, true, "Attribute", true, "is not", "Value", "is", null, "visible","-","");
                 sc.addNewCase(ae);
             }
             ts.addScenario(sc);
