@@ -6,6 +6,7 @@
 package gui;
 
 import entities.AssertElement;
+import entities.Mouse;
 import entities.Scenario;
 import entities.TestSuite;
 import entities.Visit;
@@ -28,19 +29,19 @@ public class MainGUI extends javax.swing.JFrame {
         initComponents();
         initFeatureTree();
         this.setTitle(title);
-
+        
     }
-
+    
     private void initFeatureTree() throws InstantiationException {
         trFeature.setModel(new TestSuiteTreeModel(prepareTree()));
-
+        
         trFeature.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent e) {
                 showDetailsPanel(trFeature.getLastSelectedPathComponent());
             }
         });
     }
-
+    
     private void showDetailsPanel(Object node) {
         if (node instanceof Visit) {
             VisitGUI visit = new VisitGUI((Visit) node);
@@ -54,8 +55,12 @@ public class MainGUI extends javax.swing.JFrame {
             AssertGUI assertGUI = new AssertGUI((AssertElement) node);
             spDetails.setViewportView(assertGUI);
         }
+        if (node instanceof Mouse) {
+            MouseGUI mouse = new MouseGUI((Mouse) node);
+            spDetails.setViewportView(mouse);
+        }
     }
-
+    
     private TestSuite prepareTree() throws InstantiationException {
         TestSuite ts = new TestSuite("first test suite");
         for (int i = 0; i < 5; i++) {
@@ -63,8 +68,10 @@ public class MainGUI extends javax.swing.JFrame {
             for (int j = 0; j < 2; j++) {
                 Visit vs = new Visit();
                 sc.addNewCase(vs);
-                AssertElement ae = new AssertElement("Element", true, true, "Attribute", true, "is not", "Value", "is", null, "visible","-","");
+                AssertElement ae = new AssertElement("Element", true, true, "Attribute", true, "is not", "Value", "is", null, "visible", "-", "");
                 sc.addNewCase(ae);
+                Mouse m = new Mouse("this is target");
+                sc.addNewCase(m);
             }
             ts.addScenario(sc);
         }
