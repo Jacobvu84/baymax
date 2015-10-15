@@ -9,6 +9,7 @@ import entities.AssertElement;
 import entities.Mouse;
 import entities.Scenario;
 import entities.TestSuite;
+import entities.TextField;
 import entities.Visit;
 import entities.WaitFor;
 import javax.swing.event.TreeSelectionEvent;
@@ -64,6 +65,10 @@ public class MainGUI extends javax.swing.JFrame {
             WaitForGUI wf = new WaitForGUI((WaitFor) node);
             spDetails.setViewportView(wf);
         }
+        if (node instanceof TextField) {
+            TextFieldGUI textField = new TextFieldGUI((TextField) node);
+            spDetails.setViewportView(textField);
+        }
     }
 
     private TestSuite prepareTree() throws InstantiationException {
@@ -81,6 +86,8 @@ public class MainGUI extends javax.swing.JFrame {
                 sc.addNewCase(wf);
                 WaitFor wf2 = new WaitFor(5, true);
                 sc.addNewCase(wf2);
+                TextField tf = new TextField("this is a text", "this is target", true);
+                sc.addNewCase(tf);
             }
             ts.addScenario(sc);
         }
