@@ -265,6 +265,11 @@ public class DefinitionSteps {
 		baymax.click_on_the(target);
 	}
 	
+	@When("^\"([^\"]*)\" is scrolled into view$")
+	public void element_is_scrolled_into_view(String target){
+		baymax.element_is_scrolled_into_view(target);
+	}
+	
 	@When("^wait for the \"([^\"]*)\" element to be clickable$")
 	public void wait_for_the_element_to_be_clickable(String element){
 		baymax.wait_for_the_element_to_be_clickable(element);

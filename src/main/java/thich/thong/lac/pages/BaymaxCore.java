@@ -20,17 +20,21 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
-import org.openqa.selenium.remote.server.handler.GetAlertText;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import net.thucydides.core.pages.PageObject;
+import net.thucydides.core.webdriver.DriverSource;
 
-public class BaymaxCore extends PageObject {
+public class BaymaxCore extends PageObject  implements DriverSource{
 	
 	String defaultWindow = "";
 	
@@ -44,6 +48,26 @@ public class BaymaxCore extends PageObject {
 		return null;
 	}
 
+	@Override
+	public WebDriver newDriver() {
+		DesiredCapabilities dc = new DesiredCapabilities();
+		dc.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING,false);
+		dc.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, false);
+		dc.setCapability(InternetExplorerDriver.UNEXPECTED_ALERT_BEHAVIOR, true);
+		dc.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+		dc.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true); 
+		dc.setJavascriptEnabled(true); 
+		WebDriver driver = new InternetExplorerDriver(dc); 
+		return driver;
+	}
+
+	@Override
+	public boolean takesScreenshots() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
 	private By getObject(String locator) {
 		By by = null;
 		try {
@@ -484,6 +508,12 @@ public class BaymaxCore extends PageObject {
 	
 	public void navigate_to(String url) {
 		getDriver().navigate().to(url);
+	}
+
+	public void scrolled_element_into_view(String element) {
+		// ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(false);", getWebElement(element));
+		 evaluateJavascript("arguments[0].scrollIntoView(false);", getWebElement(element));
+		  waitABit(15);
 	}
 
 }

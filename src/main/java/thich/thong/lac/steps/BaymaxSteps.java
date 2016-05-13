@@ -11,14 +11,18 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import net.thucydides.core.webdriver.DriverSource;
 import thich.thong.lac.pages.BaymaxCore;
 import thich.thong.lac.util.CompareGraph;
 
-public class BaymaxSteps extends ScenarioSteps {
+public class BaymaxSteps extends ScenarioSteps{
 
 	BaymaxCore onBaymax;
 
@@ -26,7 +30,8 @@ public class BaymaxSteps extends ScenarioSteps {
 
 	@Step
 	public void visit() {
-		onBaymax.open();
+		//onBaymax.open();
+		onBaymax.newDriver().get("http://google.com");
 	}
 	
 	@Step
@@ -477,4 +482,11 @@ public class BaymaxSteps extends ScenarioSteps {
 		onBaymax.element(webElement).clear();
 		onBaymax.element(webElement).sendKeys(listVar.get(var));
 	}
+
+	@Step
+	public void element_is_scrolled_into_view(String target) {
+		onBaymax.scrolled_element_into_view(target);
+	}
+
+	
 }
