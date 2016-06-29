@@ -1,6 +1,16 @@
 package thich.thong.lac.util;
 
-import net.serenitybdd.core.Serenity;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -8,10 +18,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.*;
+import net.serenitybdd.core.Serenity;
 
 /**
  * @Description Table data, Excel data utility for data table of cucumber
@@ -30,6 +37,80 @@ public class SessionData {
 	private static final String EXCEL_FILE_LIST = "#ExcelFiles#";
 	private static final String TABLE_DATA_LIST = "#TableDatas#";
 
+	// #Region# Session Data Variable : List<String>
+	/**
+	 * @Description Add new string for List<String> via Session Data
+	 * @author Vincent
+	 * @param dataKey
+	 * @param value
+	 */
+	public static void addToListString(String dataKey, String value) {
+		try {
+			List<String> getlString = Serenity.sessionVariableCalled(dataKey);
+			getlString.add(value);
+			Serenity.setSessionVariable(dataKey).to(getlString);
+		} catch (NullPointerException e) {
+			System.out.println("***** WARNING ***** : Session Data does not exist: " + dataKey);
+			List<String> getlString = new ArrayList<String>();
+			getlString.add(value);
+			Serenity.setSessionVariable(dataKey).to(getlString);
+		}
+	}
+
+	/**
+	 * @Description Clear all string for List<String> via Session Data
+	 * @author Vincent
+	 * @param dataKey
+	 */
+	public static void clearListString(String dataKey) {
+		try {
+			List<String> getlString = Serenity.sessionVariableCalled(dataKey);
+			getlString.clear();
+			Serenity.setSessionVariable(dataKey).to(getlString);
+		} catch (NullPointerException e) {
+			System.out.println("***** WARNING ***** : Session Data List String does not exist: " + dataKey);
+		}
+	}
+
+	/**
+	 * @Description Get the last added string for List<String> via Session Data
+	 * @author Vincent
+	 * @param dataKey
+	 */
+	public static String getListStringLastValue(String dataKey) {
+		try {
+			List<String> getlString = Serenity.sessionVariableCalled(dataKey);
+			return getlString.get(getlString.size() - 1);
+		} catch (NullPointerException e) {
+			System.out.println("***** WARNING ***** : Session Data List String does not exist: " + dataKey);
+			return null;
+		}
+	}
+
+	/**
+	 * @Description Get value string for List<String> via Session Data. Negative
+	 *              number for get from the last.
+	 * @author Vincent
+	 * @param dataKey
+	 * @param index
+	 */
+	public static String getListStringByIndex(String dataKey, int index) {
+		try {
+			List<String> getlString = Serenity.sessionVariableCalled(dataKey);
+			if (index >= 0) {
+				return getlString.get(index - 1);
+			} else {
+				System.out.println("***** INFO ***** : Session Data [" + dataKey + "] "
+						+ System.getProperty("line.separator") + getlString);
+				return getlString.get((getlString.size() - 1) + index);
+			}
+		} catch (NullPointerException e) {
+			System.out.println("***** WARNING ***** : Session Data List String does not exist: " + dataKey);
+			return null;
+		}
+	}
+
+	// #EndRegion# Session Data Variable : List<String>
 	// #Region# Report
 	/**
 	 * @Description Generate Table Data Report as String
@@ -143,6 +224,29 @@ public class SessionData {
 	 */
 	private static String padRight(String s, int n) {
 		return String.format("%1$-" + n + "s", s);
+	}
+
+	public static boolean isSameDecimalValue(String _actual, String _expected) {
+		System.out.println("Actual: " + _actual + " Expected: " + _expected);
+		int maxlength = 0;
+		if (!_actual.contains(".")) {
+			_actual += ".";
+		}
+		if (!_expected.contains(".")) {
+			_expected += ".";
+		}
+		if (_actual.length() >= _expected.length()) {
+			maxlength = _actual.length();
+		} else {
+			maxlength = _expected.length();
+		}
+		_actual = padRight(_actual, maxlength).replace(' ', '0');
+		_expected = padRight(_expected, maxlength).replace(' ', '0');
+		if (_actual.equals(_expected)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	// #EndRegion# Report
 
@@ -361,6 +465,28 @@ public class SessionData {
 						"***WARNING*** Row [" + _rowIndex + "] not found in Data Table [" + _dataTableKey + "].");
 			}
 
+		}
+		return ret;
+	}
+
+	/**
+	 * @Description Get cell data value (data table description in feature file)
+	 *              from Session Data variable by index of Row and Column.
+	 * @author Vincent
+	 * @param _dataTableKey
+	 * @param _rowIndex
+	 * @param _colIndex
+	 * @return
+	 */
+	public static String getDataTbVal(String _dataTableKey, int _rowIndex, int _colIndex) {
+		String ret = "";
+		LinkedHashMap<Integer, List<String>> lhTempSessionDataTable = getDataTbRows(_dataTableKey);
+		try {
+			ret = lhTempSessionDataTable.get(_rowIndex).get(_colIndex);
+		} catch (Exception e) {
+			ret = "";
+			System.out
+					.println("***WARNING*** Row [" + _rowIndex + "] not found in Data Table [" + _dataTableKey + "].");
 		}
 		return ret;
 	}
@@ -664,13 +790,13 @@ public class SessionData {
 				HSSFSheet sheet = workBook.getSheetAt(i);
 				// XSSFSheet sheet = workBook.getSheetAt(0);
 				sheetName = workBook.getSheetName(i);
-				int           countCellInRowHeader = 0;
-				int           countCellInRow       = 0;
-				Iterator<Row> rows                 = sheet.rowIterator();
+				int countCellInRowHeader = 0;
+				int countCellInRow = 0;
+				Iterator<Row> rows = sheet.rowIterator();
 				while (rows.hasNext()) {
-					HSSFRow        row   = (HSSFRow) rows.next();
+					HSSFRow row = (HSSFRow) rows.next();
 					Iterator<Cell> cells = row.cellIterator();
-					List<String>   data  = new LinkedList<String>();
+					List<String> data = new LinkedList<String>();
 					while (cells.hasNext()) {
 						HSSFCell cell = (HSSFCell) cells.next();
 						cell.setCellType(Cell.CELL_TYPE_STRING);
